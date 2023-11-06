@@ -1,4 +1,4 @@
-import Link from "next/link";
+// import Link from "next/link";
 import React, { Suspense } from "react";
 import TicketList from "./TicketList";
 import Loading from "../loading";
@@ -17,6 +17,8 @@ export default function Tickets() {
       <Suspense fallback={<Loading/>}>
         <TicketList />
       </Suspense>
+      
+      
     </main>
   );
 }

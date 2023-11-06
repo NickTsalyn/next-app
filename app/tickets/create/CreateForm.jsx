@@ -1,6 +1,5 @@
 "use client";
 
-import axios from "axios";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
 
@@ -14,22 +13,29 @@ export default function CreateForm() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    setIsLoading(true)
+    setIsLoading(true);
 
     const ticket = {
-        title, body, priority, user_email: "mario@netninjs.dev"
+      title,
+      body,
+      priority,
+      user_email: "mario@netninjs.dev",
+    };
+
+    const res = await fetch(" http://localhost:4000/tickets", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(ticket),
+    });
+    if (res.status === 201) {
+      router.refresh();
+      router.push("/tickets");
     }
-
-    const res = await axios.post(' http://localhost:4000/tickets', ticket)
-
-    router.refresh()
-    router.push('/tickets')
-
 
   };
 
   return (
-    <form className="w-1/2" onSubmit={handleSubmit}> 
+    <form className="w-1/2" onSubmit={handleSubmit}>
       <label>
         <span>Title:</span>
         <input type="text" required onChange={(e) => setTitle(e.target.value)} value={title} />
